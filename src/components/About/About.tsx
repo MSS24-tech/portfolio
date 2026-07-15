@@ -1,31 +1,41 @@
+import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import ProfileCard from "./ProfileCard";
-import Stats from "./Stats";
-import Expertise from "./Expertise";
+import { useInView } from "react-intersection-observer";
+
+const ProfileCard = lazy(() => import("./ProfileCard"));
+const Stats = lazy(() => import("./Stats"));
+const Expertise = lazy(() => import("./Expertise"));
+
+function Loader() {
+  return (
+    <div className="h-80 flex items-center justify-center">
+      <div className="h-8 w-8 rounded-full border-4 border-cyan-400 border-t-transparent animate-spin" />
+    </div>
+  );
+}
 
 export default function About() {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    rootMargin: "300px",
+  });
+
   return (
-    <section id="about" className="relative py-32 px-6">
+    <section id="about" ref={ref} className="relative py-32 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <motion.h2
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.35 }}
           className="text-5xl font-bold mb-8"
         >
           About Me
         </motion.h2>
 
-        {/* Description */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="w-full text-gray-400 text-lg leading-9 space-y-6"
-        >
+        {/* Description (No animation for better performance) */}
+        <div className="w-full text-gray-400 text-lg leading-9 space-y-6">
           <p>
             I'm <span className="text-white font-semibold">M S Sharath</span>, a
             Cloud Engineer with over{" "}
@@ -71,20 +81,28 @@ export default function About() {
             innovative, future-ready solutions that create lasting value for
             businesses and their users.
           </p>
-        </motion.div>
+        </div>
 
         {/* Cards */}
-        <div className="grid lg:grid-cols-2 gap-20 mt-20">
-          <ProfileCard />
+        {inView && (
+          <div className="grid lg:grid-cols-2 gap-20 mt-20">
+            <Suspense fallback={<Loader />}>
+              <ProfileCard />
+            </Suspense>
 
-          <div>
-            <Stats />
+            <div>
+              <Suspense fallback={<Loader />}>
+                <Stats />
+              </Suspense>
 
-            <div className="mt-16">
-              <Expertise />
+              <div className="mt-16">
+                <Suspense fallback={<Loader />}>
+                  <Expertise />
+                </Suspense>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

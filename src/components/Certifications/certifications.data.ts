@@ -8,7 +8,7 @@ export interface Certification {
   description: string;
 }
 
-export const certifications: Certification[] = [
+export const certifications: ReadonlyArray<Certification> = Object.freeze([
   {
     id: 1,
     title: "GenAI Academy: Yellow Belt Level 2 for Developers",
@@ -19,7 +19,6 @@ export const certifications: Certification[] = [
     description:
       "Completed the GenAI Academy Yellow Belt Level 2 program, gaining practical knowledge of Generative AI concepts, prompt engineering, AI-assisted development, and enterprise AI applications.",
   },
-
   {
     id: 2,
     title: "Java Tutorial for Complete Beginners",
@@ -30,7 +29,6 @@ export const certifications: Certification[] = [
     description:
       "Learned Java programming fundamentals including object-oriented programming, collections, exception handling, file operations, and core Java concepts through hands-on exercises.",
   },
-
   {
     id: 3,
     title: "Create Media Search and Media Recommendation Applications with AI",
@@ -91,4 +89,4 @@ export const certifications: Certification[] = [
     description:
       "Completed comprehensive Java programming training covering core Java, object-oriented programming, collections, exception handling, file operations, and application development fundamentals.",
   },
-];
+]);

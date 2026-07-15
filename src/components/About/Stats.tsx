@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
 
-const stats = [
+const stats = Object.freeze([
   {
     number: "4+",
     title: "Years Experience",
@@ -17,36 +18,29 @@ const stats = [
     number: "100%",
     title: "Commitment",
   },
-];
+]);
 
-export default function Stats() {
+const Stats = () => {
   return (
     <div className="grid grid-cols-2 gap-6">
-      {stats.map((item, index) => (
+      {stats.map((item) => (
         <motion.div
           key={item.title}
-          initial={{ opacity: 0, y: 40, scale: 0.9 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0.6,
-            delay: index * 0.15,
-          }}
-          whileHover={{
-            scale: 1.05,
-            y: -8,
-          }}
-          className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.35 }}
+          className="rounded-3xl border border-white/10 bg-white/5 p-8 text-center"
         >
-          <h2 className="text-5xl font-black bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-transparent">
+          <h2 className="bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-5xl font-black text-transparent">
             {item.number}
           </h2>
 
-          <p className="mt-4 text-gray-400 text-lg">
-            {item.title}
-          </p>
+          <p className="mt-4 text-lg text-gray-400">{item.title}</p>
         </motion.div>
       ))}
     </div>
   );
-}
+};
+
+export default memo(Stats);
