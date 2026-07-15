@@ -77,7 +77,7 @@ export default function HeroContent() {
             </a>
 
             <a
-              href="src/assets/MSSharath_Frontend_Lead_Engineer.pdf"
+              href="/resume/MSSharath_Frontend_Lead_Engineer.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full border border-white/20 px-8 py-4 text-center font-semibold transition hover:border-cyan-400 hover:text-cyan-400"
