@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import profileImage from "../../images/A3.png";
+import profileImage from "../../images/A3.webp";
 
 export default function FloatingCards() {
   return (

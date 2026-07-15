@@ -1,6 +1,6 @@
-import bloodImage from "../../images/blood.png";
-import medImage from "../../images/Aushadha.png";
-import sanchaya from "../../images/Sanchaya.png";
+import bloodImage from "../../images/blood.webp";
+import medImage from "../../images/Aushadha.webp";
+import sanchaya from "../../images/Sanchaya.webp";
 
 export type ProjectCategory =
   | "Cloud"

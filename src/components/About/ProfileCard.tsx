@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import profileImage from "../../images/A4.jpeg";
+import profileImage from "../../images/A4.webp";
 
 export default function ProfileCard() {
   return (
