@@ -10,9 +10,13 @@ export default function Certifications() {
     >
       <div className="mx-auto max-w-7xl">
         <motion.h2
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: 0.35,
+            ease: "easeOut",
+          }}
           className="text-center text-5xl font-black"
         >
           Certifications
@@ -21,8 +25,10 @@ export default function Certifications() {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: 0.3,
+          }}
           className="mx-auto mt-6 max-w-3xl text-center leading-8 text-gray-400"
         >
           Professional certifications that demonstrate my
@@ -31,11 +37,10 @@ export default function Certifications() {
         </motion.p>
 
         <div className="mt-20 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-          {certifications.map((item, index) => (
+          {certifications.map((item) => (
             <CertificationCard
               key={item.id}
               certification={item}
-              index={index}
             />
           ))}
         </div>
