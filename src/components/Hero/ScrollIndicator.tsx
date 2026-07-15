@@ -1,18 +1,31 @@
-import { motion } from "framer-motion";
+import { memo } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
-export default function ScrollIndicator() {
+const ScrollIndicator = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      animate={{ y: [0, 10, 0] }}
+      animate={
+        shouldReduceMotion
+          ? {}
+          : {
+              y: [0, 6, 0],
+            }
+      }
       transition={{
+        duration: 2.5,
         repeat: Infinity,
-        duration: 1.5,
+        repeatType: "mirror",
+        ease: "easeInOut",
       }}
-      className="absolute bottom-10 left-1/2 -translate-x-1/2"
+      className="absolute bottom-10 left-1/2 -translate-x-1/2 will-change-transform"
     >
-      <div className="w-7 h-12 border rounded-full border-white/30 flex justify-center">
-        <div className="w-1 h-3 rounded-full bg-cyan-400 mt-2" />
+      <div className="flex h-12 w-7 justify-center rounded-full border border-white/30">
+        <div className="mt-2 h-3 w-1 rounded-full bg-cyan-400" />
       </div>
     </motion.div>
   );
-}
+};
+
+export default memo(ScrollIndicator);

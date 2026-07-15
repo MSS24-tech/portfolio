@@ -1,20 +1,25 @@
-import HeroContent from "./HeroContent";
-// import FloatingCards from "./FloatingCards";
-import ScrollIndicator from "./ScrollIndicator";
+import { lazy, Suspense } from "react";
+
+const HeroContent = lazy(() => import("./HeroContent"));
+const ScrollIndicator = lazy(() => import("./ScrollIndicator"));
 
 export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden flex items-center"
+      className="relative flex min-h-screen items-center overflow-hidden"
     >
-      {/* <FloatingCards /> */}
-
-      <div className="max-w-7xl mx-auto w-full px-6">
-        <HeroContent />
+      <div className="mx-auto w-full max-w-7xl px-6">
+        <Suspense
+          fallback={<div className="min-h-[70vh]" />}
+        >
+          <HeroContent />
+        </Suspense>
       </div>
 
-      <ScrollIndicator />
+      <Suspense fallback={null}>
+        <ScrollIndicator />
+      </Suspense>
     </section>
   );
 }
