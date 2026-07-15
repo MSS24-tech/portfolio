@@ -1,6 +1,13 @@
+import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import SkillCategory from "./SkillCategory";
 import { skillCategories } from "./skills.data";
+
+const SkillCategory = lazy(() => import("./SkillCategory"));
+
+const fadeUp = {
+  initial: { opacity: 0, y: 15 },
+  whileInView: { opacity: 1, y: 0 },
+};
 
 export default function Skills() {
   return (
@@ -8,12 +15,16 @@ export default function Skills() {
       id="skills"
       className="py-32 px-6"
     >
-      <div className="max-w-7xl mx-auto">
-
+      <div className="mx-auto max-w-7xl">
         <motion.h2
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          variants={fadeUp}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: 0.35,
+            ease: "easeOut",
+          }}
           className="text-5xl font-bold"
         >
           Skills & Technologies
@@ -22,19 +33,22 @@ export default function Skills() {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-gray-400 mt-5 max-w-3xl"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{
+            duration: 0.3,
+            delay: 0.08,
+          }}
+          className="mt-5 max-w-3xl text-gray-400"
         >
           Modern technologies I use to build scalable cloud,
           web, and mobile applications.
         </motion.p>
 
-        <div className="grid lg:grid-cols-2 gap-8 mt-20">
+        <div className="mt-20 grid gap-8 lg:grid-cols-2">
           {skillCategories.map((category) => (
-            <SkillCategory
-              key={category.title}
-              category={category}
-            />
+            <Suspense key={category.title} fallback={null}>
+              <SkillCategory category={category} />
+            </Suspense>
           ))}
         </div>
       </div>

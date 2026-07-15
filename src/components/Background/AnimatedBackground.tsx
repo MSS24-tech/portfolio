@@ -1,11 +1,44 @@
 export default function AnimatedBackground() {
   return (
     <>
+      {/* Background */}
       <div className="fixed inset-0 -z-20 bg-[#050816]" />
 
-      <div className="fixed -top-40 left-0 w-[500px] h-[500px] rounded-full bg-cyan-500/20 blur-[140px]" />
+      {/* Cyan Glow */}
+      <div
+        className="
+          fixed
+          -top-24
+          -left-24
+          -z-10
+          h-72
+          w-72
+          rounded-full
+          bg-cyan-500/15
+          blur-3xl
+          will-change-transform
+          md:h-[420px]
+          md:w-[420px]
+        "
+      />
 
-      <div className="fixed bottom-0 right-0 w-[450px] h-[450px] rounded-full bg-violet-600/20 blur-[140px]" />
+      {/* Violet Glow */}
+      <div
+        className="
+          fixed
+          -bottom-24
+          -right-24
+          -z-10
+          h-72
+          w-72
+          rounded-full
+          bg-violet-600/15
+          blur-3xl
+          will-change-transform
+          md:h-[420px]
+          md:w-[420px]
+        "
+      />
     </>
   );
 }

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
 import type { ExperienceItem } from "./experience.data";
 
@@ -5,23 +6,39 @@ interface Props {
   item: ExperienceItem;
 }
 
-export default function TimelineItem({ item }: Props) {
+const TimelineItem = ({ item }: Props) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 80 }}
+    <motion.article
+      initial={{ opacity: 0, x: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+      viewport={{
+        once: true,
+        amount: 0.2,
+      }}
+      transition={{
+        duration: 0.35,
+        ease: "easeOut",
+      }}
+      whileHover={{
+        y: -4,
+        transition: {
+          duration: 0.2,
+        },
+      }}
       className="relative pb-10 pl-10 sm:pb-12 sm:pl-14"
     >
       {/* Timeline Line */}
       <div className="absolute left-3 top-0 h-full w-[2px] bg-white/10 sm:left-4" />
 
       {/* Timeline Dot */}
-      <div className="absolute left-0 top-1 h-6 w-6 rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 shadow-lg shadow-cyan-500/30 sm:h-8 sm:w-8" />
+      <motion.div
+        whileHover={{ scale: 1.15 }}
+        transition={{ duration: 0.2 }}
+        className="absolute left-0 top-1 h-6 w-6 rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 shadow-md shadow-cyan-500/20 sm:h-8 sm:w-8"
+      />
 
       {/* Card */}
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl sm:rounded-3xl sm:p-8">
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-5 transition-colors duration-300 hover:border-cyan-400/30 hover:bg-white/10 sm:rounded-3xl sm:p-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h3 className="text-xl font-bold sm:text-2xl">{item.role}</h3>
@@ -58,15 +75,19 @@ export default function TimelineItem({ item }: Props) {
 
         <div className="mt-6 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
           {item.technologies.map((tech) => (
-            <span
+            <motion.span
               key={tech}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.15 }}
               className="rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3 py-1.5 text-xs text-cyan-300 sm:px-4 sm:py-2 sm:text-sm"
             >
               {tech}
-            </span>
+            </motion.span>
           ))}
         </div>
       </div>
-    </motion.div>
+    </motion.article>
   );
-}
+};
+
+export default memo(TimelineItem);
